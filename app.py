@@ -1,10 +1,13 @@
 from flask import Flask
 from dotenv import load_dotenv
 import os
+from controllers.pvalue_controller import pvalue_bp
+
 
 load_dotenv()
 
 app = Flask(__name__)
+app.register_blueprint(pvalue_bp, url_prefix = '/pvalue')
 
 
 if __name__ == '__main__':
