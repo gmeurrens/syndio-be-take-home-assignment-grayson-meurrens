@@ -3,7 +3,6 @@ from dotenv import load_dotenv
 import os
 from controllers.pvalue_controller import pvalue_bp
 
-
 load_dotenv()
 
 app = Flask(__name__)
