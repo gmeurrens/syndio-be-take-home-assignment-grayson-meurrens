@@ -1,5 +1,7 @@
 import sqlite3
 from flask import jsonify
+import pandas as pd
+from stats.ols_regression import protected_class_pvalue
 
 def db_connect():
     conn = sqlite3.connect('employees.db')
@@ -8,9 +10,10 @@ def db_connect():
 
 def calculate_pvalue():
     conn = db_connect()
-    cursor = conn.cursor()
-    cursor.execute('SELECT COUNT(id) FROM employees')
-    result = cursor.fetchone()
+    query = 'SELECT protected_class, tenure, performance, compensation FROM employees'
+    df = pd.read_sql_query(query, conn)
     conn.close()
+
+    pvalue = protected_class_pvalue(df)
     
-    return result[0]
+    return pvalue
