@@ -17,3 +17,13 @@ def calculate_pvalue():
     pvalue = protected_class_pvalue(df)
     
     return pvalue
+
+def calculate_pvalue_department(dept):
+    conn = db_connect()
+    query = f"SELECT protected_class, tenure, performance, compensation FROM employees WHERE department = '{dept}'"
+    df = pd.read_sql_query(query, conn)
+    conn.close()
+
+    pvalue = protected_class_pvalue(df)
+    
+    return pvalue
