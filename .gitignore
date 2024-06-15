@@ -1,1 +1,5 @@
+# Local Cache
 __pycache__/
+
+#dotenv
+.env

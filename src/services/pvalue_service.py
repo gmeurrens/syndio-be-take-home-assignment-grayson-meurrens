@@ -8,19 +8,13 @@ def db_connect():
     conn.row_factory = sqlite3.Row
     return conn
 
-def calculate_pvalue():
+def calculate_pvalue(dept=None):
     conn = db_connect()
-    query = 'SELECT protected_class, tenure, performance, compensation FROM employees'
-    df = pd.read_sql_query(query, conn)
-    conn.close()
+    query = "SELECT protected_class, tenure, performance, compensation FROM employees"
 
-    pvalue = protected_class_pvalue(df)
-    
-    return pvalue
+    if dept is not None:
+        query += f" WHERE department = '{dept}'"
 
-def calculate_pvalue_department(dept):
-    conn = db_connect()
-    query = f"SELECT protected_class, tenure, performance, compensation FROM employees WHERE department = '{dept}'"
     df = pd.read_sql_query(query, conn)
     conn.close()
 
